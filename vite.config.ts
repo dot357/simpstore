@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import path from "path";
+import type { UserConfig } from 'vite'
 
 export default defineConfig({
   build: {
@@ -15,14 +16,19 @@ export default defineConfig({
         globals: {},
       },
     },
+    // Prevent TypeScript from trying to bundle Rollup's internal modules
+    commonjsOptions: {
+      transformMixedEsModules: true,
+      exclude: ['rollup/parseAst']
+    },
   },
   test: {
     globals: true,
-     environment: "happy-dom",
-     setupFiles: ['./src/tests/setup.ts'],
+    environment: "happy-dom",
+    setupFiles: ['./src/test/setup.ts'],
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
     },
   },
-});
+}) as UserConfig;

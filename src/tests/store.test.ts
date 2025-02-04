@@ -1,5 +1,5 @@
 // src/__tests__/store.test.ts
-import { describe, it, expect, beforeEach, vi, beforeAll } from 'vitest'
+import { describe, it, expect, beforeEach,  beforeAll } from 'vitest'
 
 // Mock localStorage
 const localStorageMock = (() => {

@@ -1,16 +1,41 @@
 {
-  "name": "simpstore",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@dot357/simpstore",
+  "version": "0.1.0",
   "type": "module",
+  "description": "A simple, framework-agnostic state management library inspired by Pinia",
+  "main": "dist/simple-state-store.umd.js",
+  "module": "dist/simple-state-store.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest --watch",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
   },
+  "keywords": [
+    "state-management",
+    "typescript",
+    "javascript",
+    "store",
+    "pinia-inspired"
+  ],
+  "author": "dot357",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dot357/simpstore.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dot357/simpstore/issues"
+  },
+  "homepage": "https://github.com/dot357/simpstore#readme",
   "devDependencies": {
     "@types/node": "^22.10.10",
     "@vitest/coverage-v8": "^3.0.4",
@@ -18,5 +43,8 @@
     "typescript": "~5.6.2",
     "vite": "^6.0.5",
     "vitest": "^3.0.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

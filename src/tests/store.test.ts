@@ -99,7 +99,9 @@ describe('SimpStore', () => {
     it('saves state to localStorage when persist option is true', async () => {
       const useStore = defineStore('persisted', () => ({
         count: 0,
-        increment: () => { count++ }
+        increment: function() { 
+          this.count++; 
+        }
       }), { persist: true })
 
       const store = useStore()
@@ -119,7 +121,9 @@ describe('SimpStore', () => {
 
       const useStore = defineStore('persisted', () => ({
         count: 0,
-        increment: () => { count++ }
+        increment: function() { 
+          this.count++; 
+        }
       }), { persist: true })
 
       const store = useStore()
@@ -158,7 +162,9 @@ describe('SimpStore', () => {
     it('only persists non-function values', async () => {
       const useStore = defineStore('methods', () => ({
         count: 0,
-        increment: () => { count++ }
+        increment: function() { 
+          this.count++; 
+        }
       }), { persist: true })
 
       const store = useStore()

@@ -11,7 +11,7 @@ npm i @dot357/simpstore
 ## Usage
 
 ```typescript
-import { defineStore } from 'simpstore'
+import { defineStore } from '@dot357/simpstore'
 
 // Define a store
 const useCounterStore = defineStore('counter', () => {

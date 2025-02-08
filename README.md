@@ -5,7 +5,7 @@ A simple, framework-agnostic state management library inspired by Pinia.
 ## Installation
 
 ```bash
-npm install simpstore
+npm i @dot357/simpstore
 ```
 
 ## Usage

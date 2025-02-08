@@ -1,0 +1,1 @@
+declare module '@dot357/simpstore';

@@ -1,50 +1,106 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + Preact/Signals + SimpStore
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. Install dependencies
+`npm i`
+2. Run the app
+`npm run dev`
 
-Currently, two official plugins are available:
+## Usage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Creating a Store
 
-## Expanding the ESLint configuration
+Here's an example of creating a store using React Signals:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+```typescript
+import { defineStore } from '@dot357/simpstore'
+import { useSignal } from '@preact/signals-react'
 
-- Configure the top-level `parserOptions` property like this:
+export const useSignalStore = defineStore('signalStore', () => {
+    const count = useSignal(0)
+    
+    function increment() {
+        count.value++
+    }
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
+    function decrement() {
+        count.value--
+    }
+
+    function getCount() {
+        return count.value
+    }
+
+    // Example of a more complex action
+    function incrementWithSideEffect() {
+        count.value++
+        count.value = count.value + randomIntFromInterval(1, 10)
+    }
+
+    return {
+        count,
+        increment,
+        getCount,
+        decrement,
+        incrementWithSideEffect
+    }
 })
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Using the Store
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```typescript
+import { useSignalStore } from './stores/signalStore'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+function MyComponent() {
+    const store = useSignalStore()
+
+    return (
+        <div>
+            <p>Count: {store.count}</p>
+            <button onClick={store.increment}>Increment</button>
+            <button onClick={store.decrement}>Decrement</button>
+        </div>
+    )
+}
 ```
+
+## Why SimpStore?
+
+- **Simplicity First**: No complex boilerplate or configuration needed
+- **Framework Freedom**: Unlike Redux, SimpStore doesn't force you into a specific pattern
+- **Cross-Page State**: Perfect for Shopify applications using Liquid, where maintaining state across pages can be challenging
+- **Local Storage Support**: Built-in options for state persistence
+- **Lightweight**: Minimal overhead for your application
+
+## TypeScript Support
+
+SimpStore is written in TypeScript and provides full type safety out of the box.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+[MIT License](LICENSE)
+
+## Inspiration
+
+This project is inspired by [Pinia](https://pinia.vuejs.org/), the Vue Store that brings simplicity and ease of use to state management.
+
+## Development
+
+Built with:
+- TypeScript
+- Vite
+
+## Roadmap
+
+- [ ] Add more storage adapters
+- [ ] Add middleware support
+- [ ] Add devtools integration
+- [ ] Add more documentation and examples
+
+## Support
+
+If you encounter any issues or have questions, please file an issue on the GitHub repository.
